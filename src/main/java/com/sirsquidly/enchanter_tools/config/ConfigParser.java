@@ -8,6 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.GameData;
@@ -41,13 +42,13 @@ public class ConfigParser
 		ConfigCache.comprehensionEntityBlacklist.clear();
 
 		//Chiseled Bookshelf
-		for(String S : Config.block.chiseledBookshelf.acceptedBooks)
+		if (Config.block.chiseledBookshelf.enable) for(String S : Config.block.chiseledBookshelf.acceptedBooks)
 		{
 			ItemStack book = getItemStackFromString(S);
 
 			if (book == ItemStack.EMPTY)
 			{
-                enchanterTools.LOGGER.error("Chiseled Bookshelf accepted book {} was not found, skipping...", S);
+                if (Loader.isModLoaded(S.split(":")[0])) enchanterTools.LOGGER.error("Chiseled Bookshelf accepted book {} was not found, skipping...", S);
 				continue;
 			}
 
@@ -62,7 +63,7 @@ public class ConfigParser
 
 			if (enchant == null)
 			{
-                enchanterTools.LOGGER.error("Chiseled Bookshelf blacklisted enchant {} was not found, skipping...", S);
+                enchanterTools.LOGGER.error("Arcane Brazier blacklisted enchant {} was not found, skipping...", S);
 				continue;
 			}
 			ConfigCache.brazierBurnEnchantBlacklist.add(S);
@@ -71,7 +72,7 @@ public class ConfigParser
 		{
 			ItemStack stack = getItemStackFromString(S);
 
-			if (stack == null)
+			if (stack.isEmpty())
 			{
                 enchanterTools.LOGGER.error("Arcane Brazier blacklisted item {} was not found, skipping...", S);
 				continue;
@@ -94,7 +95,7 @@ public class ConfigParser
 		{
 			ItemStack stack = getItemStackFromString(S);
 
-			if (stack == null)
+			if (stack.isEmpty())
 			{
                 enchanterTools.LOGGER.error("Extracting Book blacklisted item {} was not found, skipping...", S);
 				continue;
