@@ -39,9 +39,9 @@ public class PotionComprehension extends Potion
         if (player.isPotionActive(EnchanterToolsPotions.COMPREHENSION))
         {
             PotionEffect effect = player.getActivePotionEffect(EnchanterToolsPotions.COMPREHENSION);
-            int amplifier = effect.getAmplifier();
+            int lvl = effect.getAmplifier() + 1;
 
-            float multiplier = (1 + amplifier) * 1.5F;
+            float multiplier = 1 + Config.potionEffects.comprehension.xpMultiplier * lvl;
             orb.xpValue = (int) (orb.xpValue * (multiplier));
         }
     }
@@ -59,9 +59,9 @@ public class PotionComprehension extends Potion
         if (!entity.isPotionActive(EnchanterToolsPotions.COMPREHENSION)) return;
 
         PotionEffect effect = entity.getActivePotionEffect(EnchanterToolsPotions.COMPREHENSION);
-        int amplifier = effect.getAmplifier();
+        int lvl = effect.getAmplifier() + 1;
 
-        float multiplier = (1 + amplifier) * 1.5F;
+        float multiplier = 1 + Config.potionEffects.comprehension.xpMultiplier * lvl;
 
         event.setDroppedExperience((int) (event.getDroppedExperience() * multiplier));
 

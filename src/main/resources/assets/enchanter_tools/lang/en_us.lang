@@ -133,6 +133,7 @@ config.enchanter_tools.potion_effects.comprehension.enable=Enable Comprehension
 config.enchanter_tools.potion_effects.comprehension.bossesAreBlacklisted=Blacklist Boss entities
 config.enchanter_tools.potion_effects.comprehension.grantedByBottleOEnchanting=Bottle o' Enchanting Comprehension duration
 config.enchanter_tools.potion_effects.comprehension.entityBlacklist=Entity Blacklist
+config.enchanter_tools.potion_effects.comprehension.xpMultiplier=XP Multiplier
 
 
 

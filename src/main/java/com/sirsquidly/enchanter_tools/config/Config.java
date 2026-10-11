@@ -370,6 +370,11 @@ public class Config
                     {
                             "minecraft:wither"
                     };
+
+            @net.minecraftforge.common.config.Config.LangKey("config.enchanter_tools.potion_effects.comprehension.xpMultiplier")
+            @net.minecraftforge.common.config.Config.Comment("By how much to increase xp gains per level of Comprehension (default 0.5=50%).")
+            @net.minecraftforge.common.config.Config.RangeDouble(min = 0)
+            public float xpMultiplier = 0.5F;
         }
     }
 
