@@ -1,9 +1,11 @@
 package com.sirsquidly.enchanter_tools.common;
 
+import com.expandedevents.api.ExpandedEventsAPI;
 import com.sirsquidly.enchanter_tools.client.particle.enchanterToolsParticles;
 import com.sirsquidly.enchanter_tools.common.blocks.tileentity.TileArcaneBrazier;
 import com.sirsquidly.enchanter_tools.common.blocks.tileentity.TileChiseledBookshelf;
 import com.sirsquidly.enchanter_tools.common.blocks.tileentity.TilePonderingOrb;
+import com.sirsquidly.enchanter_tools.common.items.ItemLapisRune;
 import com.sirsquidly.enchanter_tools.config.ConfigParser;
 import com.sirsquidly.enchanter_tools.enchanterTools;
 import com.sirsquidly.enchanter_tools.init.EnchanterToolsItems;
@@ -36,6 +38,7 @@ public class CommonProxy
 
     public void postInitRegisteries(FMLPostInitializationEvent event)
     {
+        ExpandedEventsAPI.registerEnchantingReagentPredicate(stack -> stack.getItem() instanceof ItemLapisRune);
         ConfigParser.breakupConfigArrays();
         EnchanterToolsItems.LAPIS_RUNES.forEach(item -> item.getRuneType().init());
     }

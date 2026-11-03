@@ -126,6 +126,7 @@ config.enchanter_tools.item.enchantedInkwell=Enchanted Inkwell Config
 config.enchanter_tools.item.enchantedInkwell.enable=Enable Enchanted Inkwell
 config.enchanter_tools.item.enchantedInkwell.inkwell_lootTables=Loot table Injections
 config.enchanter_tools.item.lapisRune=Lapis Rune Config
+config.enchanter_tools.item.lapisRune.reducedCost=Reduced Rune Cost
 config.enchanter_tools.item.lapisRune.runeTypes=Registered lapis runes
 config.enchanter_tools.item.obsidianBurnisher=Obsidian Burnisher Config
 config.enchanter_tools.item.obsidianBurnisher.enable=Enable Obsidian Burnisher

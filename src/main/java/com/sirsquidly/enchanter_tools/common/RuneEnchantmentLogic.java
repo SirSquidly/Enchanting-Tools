@@ -8,7 +8,6 @@ import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -19,13 +18,13 @@ public final class RuneEnchantmentLogic
     /** Generates the enchantments pool.
      *
      * Note: By Default. Target Item is just a Book. */
-    public static List<EnchantmentData> buildRunePool(RuneType runeType, ItemStack targetItem, int power, boolean treasureAllowed, Random rand, Set<ResourceLocation> filter)
+    public static List<EnchantmentData> buildRunePool(RuneType runeType, ItemStack targetItem, int power, boolean treasureAllowed, Random rand, Set<Enchantment> filter)
     {
         List<EnchantmentData> pool = new ArrayList<>(), out = new ArrayList<>();
 
         for (Enchantment enchantment : buildAllowedSet(runeType, targetItem, treasureAllowed))
         {
-            if (filter.contains(enchantment.getRegistryName())) continue;
+            if (filter.contains(enchantment)) continue;
 
             for (int level = enchantment.getMaxLevel(); level >= enchantment.getMinLevel(); level--)
             {
@@ -87,9 +86,9 @@ public final class RuneEnchantmentLogic
         return allowed;
     }
 
-    public static Set<ResourceLocation> getBrazierBlockedEnchants(World world, BlockPos tablePos)
+    public static Set<Enchantment> getBrazierBlockedEnchants(World world, BlockPos tablePos)
     {
-        Set<ResourceLocation> blocked = new HashSet<>();
+        Set<Enchantment> blocked = new HashSet<>();
 
         for (int x = -1; x <= 1; x++)
         {
@@ -113,16 +112,16 @@ public final class RuneEnchantmentLogic
         return blocked;
     }
 
-    private static void getBrazierEnchantment(World world, BlockPos pos, Set<ResourceLocation> blocked)
+    private static void getBrazierEnchantment(World world, BlockPos pos, Set<Enchantment> blocked)
     {
         IBlockState state = world.getBlockState(pos);
         TileEntity te = world.getTileEntity(pos);
         if (state.getBlock() instanceof BlockArcaneBrazier && te instanceof TileArcaneBrazier)
         {
             Enchantment ench = ((TileArcaneBrazier) te).getSavedEnchantment();
-            if (state.getValue(BlockArcaneBrazier.FLAME) != 2 || ench == null || ench.getRegistryName() == null)
+            if (state.getValue(BlockArcaneBrazier.FLAME) != 2 || ench == null)
                 return;
-            blocked.add(ench.getRegistryName());
+            blocked.add(ench);
         }
     }
 }

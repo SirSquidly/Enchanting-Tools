@@ -22,16 +22,7 @@ public class enchanterToolsPlugin implements IFMLLoadingPlugin
     public String getSetupClass() { return null; }
 
     @Override
-    public void injectData(Map<String, Object> data)
-    {
-        try
-        {
-            if (GlobalProperties.get(GlobalProperties.Keys.INIT) == null) { MixinBootstrap.init(); }
-            MixinEnvironment.getDefaultEnvironment().setObfuscationContext("searge");
-        }
-        catch (Throwable t)
-        { enchanterTools.LOGGER.fatal(t); }
-    }
+    public void injectData(Map<String, Object> data) {}
 
     @Override
     public String getAccessTransformerClass() { return null; }

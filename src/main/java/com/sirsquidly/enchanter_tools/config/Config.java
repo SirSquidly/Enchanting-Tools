@@ -298,6 +298,10 @@ public class Config
             })
             public TooltipType enchantmentTooltips = TooltipType.DISABLED;
 
+            @net.minecraftforge.common.config.Config.LangKey("config.enchanter_tools.item.lapisRune.reducedCost")
+            @net.minecraftforge.common.config.Config.Comment("Using a lapis rune to modify enchantments only consumes a single rune item regardless of enchanting tier.")
+            public boolean reducedCost = true;
+
             @net.minecraftforge.common.config.Config.RequiresMcRestart
             @net.minecraftforge.common.config.Config.LangKey("config.enchanter_tools.item.lapisRune.runeTypes")
             @net.minecraftforge.common.config.Config.Comment({
