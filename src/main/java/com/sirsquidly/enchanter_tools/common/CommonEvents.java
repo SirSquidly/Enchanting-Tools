@@ -1,11 +1,14 @@
 package com.sirsquidly.enchanter_tools.common;
 
+import com.expandedevents.api.event.GenerateEnchantmentListEvent;
 import com.sirsquidly.enchanter_tools.common.items.IAnvilSpecialBehavior;
+import com.sirsquidly.enchanter_tools.common.items.ItemLapisRune;
 import com.sirsquidly.enchanter_tools.config.Config;
 import com.sirsquidly.enchanter_tools.config.ConfigCache;
 import com.sirsquidly.enchanter_tools.init.EnchanterToolsItems;
 import com.sirsquidly.enchanter_tools.init.EnchanterToolsPotions;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityExpBottle;
@@ -42,6 +45,37 @@ import java.util.function.Function;
 public class CommonEvents
 {
     public static final Map<UUID, AnvilRefresherStorage> anvilRefreshers = new HashMap<>();
+
+    @SubscribeEvent
+    public static void onGenerateEnchantmentsEvent(GenerateEnchantmentListEvent event)
+    {
+        ItemStack toEnchant = event.getStack();
+        ItemStack reagent = event.getReagent();
+        Set<Enchantment> blocked = RuneEnchantmentLogic.getBrazierBlockedEnchants(event.getWorld(), event.getPos());
+
+        if(reagent.getItem() instanceof ItemLapisRune)
+        {
+            RuneType rune = ((ItemLapisRune) reagent.getItem()).getRuneType();
+            Random rand = new Random(event.getXpSeed() + event.getEnchantTier());
+            //Assigning adjusted enchantment pool
+            event.clearEnchantments();
+            List<EnchantmentData> allowed = RuneEnchantmentLogic.buildRunePool(rune, toEnchant, event.getRequiredLevel(), false, rand, blocked);
+            allowed.forEach(event::addEnchantment);
+            //Assigning new level cost
+            event.setLevelCost((int) (event.getLevelCost() * rune.getCostMult()));
+            //Assigning new required level
+            event.setRequiredLevel((int) (event.getRequiredLevel() * rune.getLevelRequirementMult()));
+            //Adjusting Rune Cost
+            if(Config.item.lapisRune.reducedCost)
+            {
+                event.setReagentCost(1);
+            }
+        }
+        else
+        {
+            blocked.forEach(event::removeEnchantment);
+        }
+    }
 
     /** This first is used for setting up the Output properly. */
     @SubscribeEvent

@@ -48,18 +48,21 @@ repositories {
     maven { name = 'CurseForge'; url = uri('https://www.cursemaven.com'); content { includeGroup 'curse.maven' } }
     maven { name = 'SpongePowered'; url = uri('https://repo.spongepowered.org/maven') }
     maven { name = 'GitHub'; url = uri('https://jitpack.io') }
+    maven { name = 'Cleanroom'; url = uri('https://maven.cleanroommc.com')}
 }
 
 dependencies {
     minecraft("net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}")
 
-    implementation "org.spongepowered:mixin:${mixin_version}"
-    annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
+    //implementation "org.spongepowered:mixin:${mixin_version}"
+    //annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
     implementation("io.github.kostaskougios:cloning:${project.cloning_version}")
 
     runtimeOnly(fg.deobf("curse.maven:caliper-266824:${project.caliper_version}"))
     implementation(fg.deobf("curse.maven:had-enough-items-557549:${project.hei_version}"))
+    implementation(fg.deobf("curse.maven:expanded-events-1396395:${project.expandedevents_version}"))
+    implementation("zone.rong:mixinbooter:${project.mixin_booter_version}") { transitive = false }
 }
 
 mixin {
